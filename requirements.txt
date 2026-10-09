@@ -1,0 +1,11 @@
+pandas
+numpy
+scikit-learn
+lightgbm
+shap
+matplotlib
+seaborn
+openpyxl
+pyarrow
+ipykernel
+jupyterlab
