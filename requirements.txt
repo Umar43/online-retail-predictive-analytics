@@ -9,3 +9,5 @@ openpyxl
 pyarrow
 ipykernel
 jupyterlab
+fastapi
+uvicorn
