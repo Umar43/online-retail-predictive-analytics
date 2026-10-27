@@ -6,6 +6,26 @@ On a test period the model never saw, the 10% of customers it flags as highest r
 
 ![Churn rate by risk decile](reports/figures/churn_by_risk_decile.png)
 
+## Live demo
+
+The model runs as a small web service (FastAPI, hosted on Render). Open the interactive page, press **POST /predict > Try it out > Execute**, and get the churn risk of a customer:
+
+**https://churn-risk-api.onrender.com/docs**
+
+- **Input:** the 19 numbers that describe a customer (recency, number of invoices, spending, and so on, as built in [`04_features`](notebooks/04_features.ipynb)). An example customer is filled in. Its numbers are made up, so its score has no real meaning.
+- **Output:** `churn_risk`, a number between 0 and 1. Use it to rank customers, not as an exact probability (see Limitations).
+- The service runs on a free plan: if nobody used it for 15 minutes, the first request takes 30 to 60 seconds to wake it up.
+- Code: [`app/main.py`](app/main.py). The trained model is saved in `models/churn_model.joblib`.
+
+To run it on your own computer:
+
+```bash
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
+
+Then open `https://churn-risk-api-0rvl.onrender.com/docs`.
+
 ## Business problem
 
 A retention campaign (an offer, a reminder, a call) costs money, so it should go to customers who are likely to leave. The goal is a risk score for every active customer, and a clear answer to: *how many customers should we contact, and which ones?*
@@ -117,18 +137,21 @@ Contacting customers at random would reach 10%, 20%, 30%... of them. The lowest-
 
 ```
 churn-clv-retail/
+├── app/                   # the API (main.py)
 ├── data/
 │   ├── raw/               # the original Excel file (not in git)
 │   └── processed/         # clean tables, labels, features (not in git)
+├── models/                # the trained model
 ├── notebooks/             # 01_data_cleaning to 05_models
 ├── reports/figures/       # charts used in this README
 ├── requirements.txt
+├── requirements-api.txt   # the packages the hosted API needs
 └── README.md
 ```
 
 ## Tools
 
-Python, pandas, scikit-learn (logistic regression, metrics), LightGBM, matplotlib and seaborn.
+Python, pandas, scikit-learn (logistic regression, metrics), LightGBM, matplotlib and seaborn, FastAPI and Render (hosting).
 
 ## Author
 
