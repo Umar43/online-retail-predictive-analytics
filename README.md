@@ -10,7 +10,7 @@ On a test period the model never saw, the 10% of customers it flags as highest r
 
 The model runs as a small web service (FastAPI, hosted on Render). Open the interactive page, press **POST /predict > Try it out > Execute**, and get the churn risk of a customer:
 
-**https://churn-risk-api.onrender.com/docs**
+**https://churn-risk-api-0rvl.onrender.com/docs**
 
 - **Input:** the 19 numbers that describe a customer (recency, number of invoices, spending, and so on, as built in [`04_features`](notebooks/04_features.ipynb)). An example customer is filled in. Its numbers are made up, so its score has no real meaning.
 - **Output:** `churn_risk`, a number between 0 and 1. Use it to rank customers, not as an exact probability (see Limitations).
